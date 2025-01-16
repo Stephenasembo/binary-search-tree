@@ -33,6 +33,17 @@ function sort(array) {
   return merge(sortedLeft, sortedRight);
 }
 
+function removeDuplicates(array) {
+  let current = 0;
+  for (let i = 0; i < array.length; i += 1) {
+    current = i + 1;
+    if (array[current] === array[i]) {
+      array.splice(current, 1);
+    }
+  }
+  return array;
+}
+
 function buildTree(array) {
 
 }
@@ -43,6 +54,3 @@ class Tree {
     this.root = null;
   }
 }
-
-const testArr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
-console.log(sort(testArr));
