@@ -231,31 +231,31 @@ class Tree {
     }
   }
 
-  preOrder(node = this.root) {
+  preOrder(callback, node = this.root) {
     if (node === null) {
       return;
     }
-    console.log(node.data);
-    this.preOrder(node.left);
-    this.preOrder(node.right);
+    callback(node);
+    this.preOrder(callback, node.left);
+    this.preOrder(callback, node.right);
   }
 
-  inOrder(node = this.root) {
+  inOrder(callback, node = this.root) {
     if (node === null) {
       return;
     }
-    this.inOrder(node.left);
-    console.log(node.data);
-    this.inOrder(node.right);
+    this.inOrder(callback, node.left);
+    callback(node);
+    this.inOrder(callback, node.right);
   }
 
-  postOrder(node = this.root) {
+  postOrder(callback, node = this.root) {
     if (node === null) {
       return;
     }
-    this.postOrder(node.left);
-    this.postOrder(node.right);
-    console.log(node.data);
+    this.postOrder(callback, node.left);
+    this.postOrder(callback, node.right);
+    callback(node);
   }
 }
 
@@ -278,7 +278,7 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
 };
 
 function callbackFn(node) {
-  console.log(`This node's value is: ${node.data}`)
+  console.log(`This node's value is: ${node.data}`);
 }
 
 // newTree.insert(2);
@@ -287,8 +287,9 @@ function callbackFn(node) {
 // newTree.insert(0);
 // newTree.insert(5);
 prettyPrint(newTree.root);
-newTree.preOrder();
-console.log('inorder');
-newTree.inOrder();
-console.log('postorder');
-newTree.postOrder();
+console.log('preorder traversal');
+newTree.preOrder(callbackFn);
+console.log('inorder traversal');
+newTree.inOrder(callbackFn);
+console.log('postorder traversal');
+newTree.postOrder(callbackFn);
