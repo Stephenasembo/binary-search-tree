@@ -192,7 +192,25 @@ class Tree {
   }
 
   levelOrder(callback) {
-
+    const rootNode = this.root;
+    function levelOrderRec(root = rootNode, queue = [root], arr = []) {
+      if (root === null) {
+        return arr;
+      }
+      if (queue.length === 0) {
+        return arr;
+      }
+      if (root.left !== null) {
+        queue.push(root.left);
+      }
+      if (root.right !== null) {
+        queue.push(root.right);
+      }
+      const front = queue.shift();
+      callback(front);
+      return levelOrderRec(queue[0], queue, arr);
+    }
+    levelOrderRec();
   }
 
   levelOrderIterative(root = this.root) {
@@ -208,24 +226,6 @@ class Tree {
         this.queue.push(front.right);
       }
     }
-  }
-
-  levelOrderRec(root = this.root, queue = [root]) {
-    if (root === null) {
-      return;
-    }
-    if (queue.length === 0) {
-      return;
-    }
-    if (root.left !== null) {
-      queue.push(root.left);
-    }
-    if (root.right !== null) {
-      queue.push(root.right);
-    }
-    const front = queue.shift();
-    console.log(front.data);
-    this.levelOrderRec(queue[0], queue);
   }
 }
 
@@ -246,10 +246,14 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
   }
 };
 
+function callbackFn(node) {
+  console.log(`This node's value is: ${node.data}`)
+}
+
 // newTree.insert(2);
 // newTree.insert(4);
 // newTree.insert(7);
 // newTree.insert(0);
 // newTree.insert(5);
 prettyPrint(newTree.root);
-newTree.levelOrderRec();
+newTree.levelOrder(callbackFn);
