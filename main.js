@@ -119,6 +119,9 @@ class Tree {
   }
 
   static findItem(value, root) {
+    if (root === null) {
+      return null;
+    }
     if (root.data === value) {
       return root;
     }
@@ -132,7 +135,7 @@ class Tree {
   }
 
   deleteItem(value, root = this.root) {
-    let foundItem = Tree.findItem(value, root);
+    const foundItem = Tree.findItem(value, root);
     const prevNode = Tree.findPrev(root, foundItem);
     // Only deletes leaf nodes
     if (foundItem.left === null && foundItem.right === null) {
@@ -171,6 +174,7 @@ class Tree {
       this.deleteItem(successor.data);
       foundItem.data = successor.data;
     }
+    return null;
   }
 
   static getSuccessor(root) {
@@ -180,6 +184,10 @@ class Tree {
       node = node.left;
     }
     return node;
+  }
+
+  find(value, root = this.root) {
+    return Tree.findItem(value, root);
   }
 }
 
@@ -206,6 +214,4 @@ newTree.insert(7);
 newTree.insert(0);
 newTree.insert(5);
 prettyPrint(newTree.root);
-console.log('deletion');
-newTree.deleteItem(1);
-prettyPrint(newTree.root);
+console.log(newTree.find(10));
