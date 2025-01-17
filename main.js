@@ -60,6 +60,7 @@ class Tree {
     this.array = arr;
     const sortedArray = removeDuplicates(sort(arr));
     this.root = buildTree(sortedArray, 0, sortedArray.length - 1);
+    this.queue = [];
   }
 
   static findLeaf(value, root) {
@@ -189,6 +190,25 @@ class Tree {
   find(value, root = this.root) {
     return Tree.findItem(value, root);
   }
+
+  levelOrder(callback) {
+
+  }
+
+  levelOrderIterative(root = this.root) {
+    if (root === null) return;
+    this.queue.push(root);
+    while (this.queue.length !== 0) {
+      const front = this.queue.shift();
+      console.log(front.data);
+      if (front.left !== null) {
+        this.queue.push(front.left);
+      }
+      if (front.right !== null) {
+        this.queue.push(front.right);
+      }
+    }
+  }
 }
 
 const test2 = [1, 2, 3, 4, 6];
@@ -214,4 +234,4 @@ newTree.insert(7);
 newTree.insert(0);
 newTree.insert(5);
 prettyPrint(newTree.root);
-console.log(newTree.find(10));
+newTree.levelOrderIterative();
