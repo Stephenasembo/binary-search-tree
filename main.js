@@ -230,11 +230,39 @@ class Tree {
       }
     }
   }
+
+  preOrder(node = this.root) {
+    if (node === null) {
+      return;
+    }
+    console.log(node.data);
+    this.preOrder(node.left);
+    this.preOrder(node.right);
+  }
+
+  inOrder(node = this.root) {
+    if (node === null) {
+      return;
+    }
+    this.inOrder(node.left);
+    console.log(node.data);
+    this.inOrder(node.right);
+  }
+
+  postOrder(node = this.root) {
+    if (node === null) {
+      return;
+    }
+    this.postOrder(node.left);
+    this.postOrder(node.right);
+    console.log(node.data);
+  }
 }
 
+const test = [4, 2, 6, 1, 3, 5, 7];
 const test2 = [1, 2, 3, 4, 6];
 const testArr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
-const newTree = new Tree(testArr);
+const newTree = new Tree(test);
 
 const prettyPrint = (node, prefix = '', isLeft = true) => {
   if (node === null) {
@@ -259,4 +287,8 @@ function callbackFn(node) {
 // newTree.insert(0);
 // newTree.insert(5);
 prettyPrint(newTree.root);
-newTree.levelOrder();
+newTree.preOrder();
+console.log('inorder');
+newTree.inOrder();
+console.log('postorder');
+newTree.postOrder();
