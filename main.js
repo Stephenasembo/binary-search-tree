@@ -92,6 +92,12 @@ class Tree {
     if (root.right === node) {
       return root;
     }
+    if (node.data > root.data) {
+      return Tree.findPrev(root.right, node);
+    }
+    if (node.data < root.data || node.data === root.data) {
+      return Tree.findPrev(root.left, node);
+    }
     return null;
   }
 
@@ -111,15 +117,31 @@ class Tree {
   deleteItem(value, root = this.root) {
     const foundItem = Tree.findItem(value, root);
     const prevNode = Tree.findPrev(root, foundItem);
-    if (foundItem.data > prevNode.data) {
-      prevNode.right = null;
-    } else {
-      prevNode.left = null;
+    // Only deletes leaf nodes
+    if (foundItem.left === null && foundItem.right === null) {
+      if (foundItem.data > prevNode.data) {
+        prevNode.right = null;
+      } else {
+        prevNode.left = null;
+      }
+      // Delete nodes with only one child
+    } else if (foundItem.left && !foundItem.right) {
+      if (foundItem.data < prevNode.data || foundItem.data === prevNode.data) {
+        prevNode.left = foundItem.left;
+      } else if (foundItem.data > prevNode.data) {
+        prevNode.right = foundItem.left;
+      }
+    } else if (!foundItem.left && foundItem.right) {
+      if (foundItem.data < prevNode.data || foundItem.data === prevNode.data) {
+        prevNode.left = foundItem.right;
+      } else if (foundItem.data > prevNode.data) {
+        prevNode.right = foundItem.right;
+      }
     }
   }
 }
 
-const test2 = [3, 4, 5];
+const test2 = [1, 2, 3, 4, 6];
 const testArr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 const newTree = new Tree(test2);
 
@@ -137,5 +159,7 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
 };
 
 prettyPrint(newTree.root);
-newTree.deleteItem(5);
+newTree.insert(0);
+newTree.deleteItem(2);
+newTree.deleteItem(1);
 prettyPrint(newTree.root);
