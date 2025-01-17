@@ -61,11 +61,34 @@ class Tree {
     const sortedArray = removeDuplicates(sort(arr));
     this.root = buildTree(sortedArray, 0, sortedArray.length - 1);
   }
+
+  static findLeaf(value, root) {
+    if (root.left === null && root.right === null) {
+      return root;
+    }
+    if (value < root.data || value === root.data) {
+      return (value, root.left);
+    }
+    if (value > root.data) {
+      return (value, root.right);
+    }
+    return null;
+  }
+
+  insert(value, root = this.root) {
+    const leafNode = Tree.findLeaf(value, root);
+    const valueNode = Node(value);
+    if (value > leafNode.data) {
+      leafNode.right = valueNode;
+    } else {
+      leafNode.left = valueNode;
+    }
+  }
 }
 
 const test2 = [3, 4, 5];
 const testArr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
-const newTree = new Tree(testArr);
+const newTree = new Tree(test2);
 
 const prettyPrint = (node, prefix = '', isLeft = true) => {
   if (node === null) {
@@ -80,4 +103,8 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
   }
 };
 
+newTree.insert(6);
+newTree.insert(5);
+newTree.insert(4);
+newTree.insert(2);
 prettyPrint(newTree.root);
