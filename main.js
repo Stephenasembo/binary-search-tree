@@ -192,6 +192,9 @@ class Tree {
   }
 
   levelOrder(callback) {
+    if (callback === undefined) {
+      throw new Error('Please pass in a callback function')
+    }
     const rootNode = this.root;
     function levelOrderRec(root = rootNode, queue = [root], arr = []) {
       if (root === null) {
@@ -256,4 +259,4 @@ function callbackFn(node) {
 // newTree.insert(0);
 // newTree.insert(5);
 prettyPrint(newTree.root);
-newTree.levelOrder(callbackFn);
+newTree.levelOrder();
