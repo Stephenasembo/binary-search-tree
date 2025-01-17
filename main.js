@@ -84,6 +84,39 @@ class Tree {
       leafNode.left = valueNode;
     }
   }
+
+  static findPrev(root, node) {
+    if (root.left === node) {
+      return root;
+    }
+    if (root.right === node) {
+      return root;
+    }
+    return null;
+  }
+
+  static findItem(value, root) {
+    if (root.data === value) {
+      return root;
+    }
+    if (value < root.data) {
+      return Tree.findItem(value, root.left);
+    }
+    if (value > root.data) {
+      return Tree.findItem(value, root.right);
+    }
+    return null;
+  }
+
+  deleteItem(value, root = this.root) {
+    const foundItem = Tree.findItem(value, root);
+    const prevNode = Tree.findPrev(root, foundItem);
+    if (foundItem.data > prevNode.data) {
+      prevNode.right = null;
+    } else {
+      prevNode.left = null;
+    }
+  }
 }
 
 const test2 = [3, 4, 5];
@@ -103,8 +136,6 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
   }
 };
 
-newTree.insert(6);
-newTree.insert(5);
-newTree.insert(4);
-newTree.insert(2);
+prettyPrint(newTree.root);
+newTree.deleteItem(5);
 prettyPrint(newTree.root);
