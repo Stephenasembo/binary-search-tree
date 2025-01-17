@@ -100,6 +100,9 @@ class Tree {
   }
 
   static findPrev(root, node) {
+    if (root.data === node.data) {
+      return root;
+    }
     if (root.left === node) {
       return root;
     }
@@ -129,29 +132,54 @@ class Tree {
   }
 
   deleteItem(value, root = this.root) {
-    const foundItem = Tree.findItem(value, root);
+    let foundItem = Tree.findItem(value, root);
     const prevNode = Tree.findPrev(root, foundItem);
     // Only deletes leaf nodes
     if (foundItem.left === null && foundItem.right === null) {
       if (foundItem.data > prevNode.data) {
         prevNode.right = null;
-      } else {
+        return foundItem;
+      }
+      if (foundItem.data < prevNode.data
+        || foundItem.data === prevNode.data) {
         prevNode.left = null;
+        return foundItem;
       }
       // Delete nodes with only one child
     } else if (foundItem.left && !foundItem.right) {
       if (foundItem.data < prevNode.data || foundItem.data === prevNode.data) {
         prevNode.left = foundItem.left;
-      } else if (foundItem.data > prevNode.data) {
+        return foundItem;
+      }
+      if (foundItem.data > prevNode.data) {
         prevNode.right = foundItem.left;
+        return foundItem;
       }
     } else if (!foundItem.left && foundItem.right) {
       if (foundItem.data < prevNode.data || foundItem.data === prevNode.data) {
         prevNode.left = foundItem.right;
-      } else if (foundItem.data > prevNode.data) {
-        prevNode.right = foundItem.right;
+        return foundItem;
       }
+      if (foundItem.data > prevNode.data) {
+        prevNode.right = foundItem.right;
+        return foundItem;
+      }
+      // Delete nodes with left and right child
+    } else if (foundItem.left && foundItem.right) {
+      const successor = Tree.getSuccessor(foundItem);
+      // The successor replaces the deleted node
+      this.deleteItem(successor.data);
+      foundItem.data = successor.data;
     }
+  }
+
+  static getSuccessor(root) {
+    let node = root;
+    node = node.right;
+    while (node !== null && node.left !== null) {
+      node = node.left;
+    }
+    return node;
   }
 }
 
@@ -176,5 +204,8 @@ newTree.insert(2);
 newTree.insert(4);
 newTree.insert(7);
 newTree.insert(0);
-newTree.insert(3);
+newTree.insert(5);
+prettyPrint(newTree.root);
+console.log('deletion');
+newTree.deleteItem(1);
 prettyPrint(newTree.root);
