@@ -3,7 +3,7 @@ function Node(data, left = null, right = null) {
     data,
     left,
     right,
-  }
+  };
 }
 function merge(left, right) {
   const sortedArray = [];
@@ -58,10 +58,26 @@ function buildTree(array, start, end) {
 class Tree {
   constructor(arr) {
     this.array = arr;
-    this.root = null;
+    const sortedArray = removeDuplicates(sort(arr));
+    this.root = buildTree(sortedArray, 0, sortedArray.length - 1);
   }
 }
 
-const testArr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 const test2 = [3, 4, 5];
-console.log(buildTree(test2, 0, test2.length - 1));
+const testArr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
+const newTree = new Tree(testArr);
+
+const prettyPrint = (node, prefix = '', isLeft = true) => {
+  if (node === null) {
+    return;
+  }
+  if (node.right !== null) {
+    prettyPrint(node.right, `${prefix}${isLeft ? '│   ' : '    '}`, false);
+  }
+  console.log(`${prefix}${isLeft ? '└── ' : '┌── '}${node.data}`);
+  if (node.left !== null) {
+    prettyPrint(node.left, `${prefix}${isLeft ? '    ' : '│   '}`, true);
+  }
+};
+
+prettyPrint(newTree.root);
