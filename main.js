@@ -66,11 +66,25 @@ class Tree {
     if (root.left === null && root.right === null) {
       return root;
     }
+    if (!root.left) {
+      if (value === root.data) {
+        return root;
+      }
+      if (value < root.data) {
+        return root;
+      }
+      return Tree.findLeaf(value, root.right);
+    }
+    if (!root.right) {
+      if (value > root.data) {
+        return root;
+      }
+    }
     if (value < root.data || value === root.data) {
-      return (value, root.left);
+      return Tree.findLeaf(value, root.left);
     }
     if (value > root.data) {
-      return (value, root.right);
+      return Tree.findLeaf(value, root.right);
     }
     return null;
   }
@@ -158,8 +172,9 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
   }
 };
 
-prettyPrint(newTree.root);
+newTree.insert(2);
+newTree.insert(4);
+newTree.insert(7);
 newTree.insert(0);
-newTree.deleteItem(2);
-newTree.deleteItem(1);
+newTree.insert(3);
 prettyPrint(newTree.root);
