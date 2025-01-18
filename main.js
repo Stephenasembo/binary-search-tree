@@ -306,11 +306,6 @@ class Tree {
   }
 }
 
-const test = [4, 2, 6, 1, 3, 5, 7];
-const test2 = [1, 2, 3, 4, 6];
-const testArr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
-const newTree = new Tree(test);
-
 const prettyPrint = (node, prefix = '', isLeft = true) => {
   if (node === null) {
     return;
@@ -323,3 +318,15 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
     prettyPrint(node.left, `${prefix}${isLeft ? '    ' : '│   '}`, true);
   }
 };
+
+// Driver script
+function createArray() {
+  const randomArr = [];
+  for (let i = 0; i < 100; i += 1) {
+    randomArr[i] = Math.floor(Math.random() * 100);
+  }
+  return randomArr;
+}
+
+console.log(createArray());
+console.log(createArray());
