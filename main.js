@@ -295,6 +295,15 @@ class Tree {
 
     return true;
   }
+
+  rebalance() {
+    const treeArray = [];
+    function retrieveNodes(node) {
+      treeArray.push(node.data);
+    }
+    this.inOrder(retrieveNodes, this.root);
+    this.root = buildTree(treeArray, 0, treeArray.length - 1);
+  }
 }
 
 const test = [4, 2, 6, 1, 3, 5, 7];
@@ -324,9 +333,12 @@ function callbackFn(node) {
 // newTree.insert(0);
 // newTree.insert(8);
 // newTree.insert(9);
-newTree.insert(5);
+// newTree.insert(5);
 // newTree.deleteItem(1);
 newTree.insert(4);
 newTree.insert(4);
 prettyPrint(newTree.root);
 console.log(newTree.isBalanced());
+newTree.rebalance();
+console.log(newTree.isBalanced());
+prettyPrint(newTree.root);
