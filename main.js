@@ -284,6 +284,17 @@ class Tree {
 
     return treeHeight - nodeHeight;
   }
+
+  isBalanced(root = this.root) {
+    const leftTree = Tree.findHeightUtil(root.left);
+    const rightTree = Tree.findHeightUtil(root.right);
+
+    if (leftTree - rightTree > 1 || leftTree - rightTree < -1) {
+      return false;
+    }
+
+    return true;
+  }
 }
 
 const test = [4, 2, 6, 1, 3, 5, 7];
@@ -310,10 +321,12 @@ function callbackFn(node) {
 
 // newTree.insert(2);
 // newTree.insert(7);
-newTree.insert(0);
-newTree.insert(0);
-// newTree.insert(5);
+// newTree.insert(0);
+// newTree.insert(8);
+// newTree.insert(9);
+newTree.insert(5);
 // newTree.deleteItem(1);
 newTree.insert(4);
+newTree.insert(4);
 prettyPrint(newTree.root);
-console.log(newTree.depth(0));
+console.log(newTree.isBalanced());
