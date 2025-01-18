@@ -277,6 +277,13 @@ class Tree {
     const nodeHeight = Tree.findHeightUtil(node);
     return nodeHeight;
   }
+
+  depth(val) {
+    const nodeHeight = this.height(val);
+    const treeHeight = this.height(this.root.data);
+
+    return treeHeight - nodeHeight;
+  }
 }
 
 const test = [4, 2, 6, 1, 3, 5, 7];
@@ -309,4 +316,4 @@ newTree.insert(0);
 // newTree.deleteItem(1);
 newTree.insert(4);
 prettyPrint(newTree.root);
-console.log(newTree.height(2));
+console.log(newTree.depth(0));
