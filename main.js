@@ -335,7 +335,17 @@ function callbackFn(node) {
 const randomArr = createArray();
 const newTree = new Tree(randomArr);
 prettyPrint(newTree.root);
-newTree.levelOrder(callbackFn);
-newTree.preOrder(callbackFn);
-newTree.inOrder(callbackFn);
-newTree.postOrder(callbackFn);
+// newTree.levelOrder(callbackFn);
+// newTree.preOrder(callbackFn);
+// newTree.inOrder(callbackFn);
+// newTree.postOrder(callbackFn);
+
+function unBalanceTree(tree) {
+  for (let i = 0; i < 150; i += 1) {
+    tree.insert(i);
+  }
+}
+
+unBalanceTree(newTree);
+prettyPrint(newTree.root);
+console.log(newTree.isBalanced());
