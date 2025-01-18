@@ -328,5 +328,11 @@ function createArray() {
   return randomArr;
 }
 
-console.log(createArray());
-console.log(createArray());
+function callbackFn(node) {
+  console.log(node.data);
+}
+
+const randomArr = createArray();
+const newTree = new Tree(randomArr);
+prettyPrint(newTree.root);
+console.log(newTree.isBalanced());
