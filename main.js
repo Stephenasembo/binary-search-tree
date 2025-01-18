@@ -335,4 +335,7 @@ function callbackFn(node) {
 const randomArr = createArray();
 const newTree = new Tree(randomArr);
 prettyPrint(newTree.root);
-console.log(newTree.isBalanced());
+newTree.levelOrder(callbackFn);
+newTree.preOrder(callbackFn);
+newTree.inOrder(callbackFn);
+newTree.postOrder(callbackFn);
