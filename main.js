@@ -193,7 +193,7 @@ class Tree {
 
   levelOrder(callback) {
     if (callback === undefined) {
-      throw new Error('Please pass in a callback function')
+      throw new Error('Please pass in a callback function');
     }
     const rootNode = this.root;
     function levelOrderRec(root = rootNode, queue = [root], arr = []) {
@@ -323,22 +323,3 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
     prettyPrint(node.left, `${prefix}${isLeft ? '    ' : '│   '}`, true);
   }
 };
-
-function callbackFn(node) {
-  console.log(`This node's value is: ${node.data}`);
-}
-
-// newTree.insert(2);
-// newTree.insert(7);
-// newTree.insert(0);
-// newTree.insert(8);
-// newTree.insert(9);
-// newTree.insert(5);
-// newTree.deleteItem(1);
-newTree.insert(4);
-newTree.insert(4);
-prettyPrint(newTree.root);
-console.log(newTree.isBalanced());
-newTree.rebalance();
-console.log(newTree.isBalanced());
-prettyPrint(newTree.root);
