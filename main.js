@@ -347,5 +347,10 @@ function unBalanceTree(tree) {
 }
 
 unBalanceTree(newTree);
-prettyPrint(newTree.root);
 console.log(newTree.isBalanced());
+newTree.rebalance();
+console.log(newTree.isBalanced());
+newTree.levelOrder(callbackFn);
+newTree.preOrder(callbackFn);
+newTree.inOrder(callbackFn);
+newTree.postOrder(callbackFn);
