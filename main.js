@@ -231,6 +231,7 @@ class Tree {
     }
   }
 
+  // Depth first traversal
   preOrder(callback, node = this.root) {
     if (node === null) {
       return;
@@ -257,6 +258,25 @@ class Tree {
     this.postOrder(callback, node.right);
     callback(node);
   }
+
+  static findHeightUtil(node) {
+    if (node === null) {
+      return -1;
+    }
+    const leftHeight = Tree.findHeightUtil(node.left);
+    const rightHeight = Tree.findHeightUtil(node.right);
+
+    return Math.max(leftHeight, rightHeight) + 1;
+  }
+
+  height(val) {
+    const node = this.find(val);
+    if (node === null) {
+      return null;
+    }
+    const nodeHeight = Tree.findHeightUtil(node);
+    return nodeHeight;
+  }
 }
 
 const test = [4, 2, 6, 1, 3, 5, 7];
@@ -282,14 +302,11 @@ function callbackFn(node) {
 }
 
 // newTree.insert(2);
-// newTree.insert(4);
 // newTree.insert(7);
-// newTree.insert(0);
+newTree.insert(0);
+newTree.insert(0);
 // newTree.insert(5);
+// newTree.deleteItem(1);
+newTree.insert(4);
 prettyPrint(newTree.root);
-console.log('preorder traversal');
-newTree.preOrder(callbackFn);
-console.log('inorder traversal');
-newTree.inOrder(callbackFn);
-console.log('postorder traversal');
-newTree.postOrder(callbackFn);
+console.log(newTree.height(2));
